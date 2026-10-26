@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Portfolio of Cheruiyot Kiprono Brian, laboratory analyst and quality control technician in Nairobi, Kenya.">
+<title>Cheruiyot Kiprono Brian</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout concept: lab-notebook page. A narrow mono rail on the left carries labels, dates and units; the wide column carries the content. A generated HPLC trace of tea catechins and caffeine is the opening moment. */
+:root {
+  --bg: #F1F5F4;
+  --panel: #E6EDEB;
+  --ink: #13201E;
+  --ink-2: #465855;
+  --line: #C9D6D3;
+  --accent: #B3235F;
+  --on-accent: #FFFFFF;
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1716; --panel: #16231F; --ink: #E4EEEB; --ink-2: #9FB3AF;
+    --line: #2A3B38; --accent: #F0719F; --on-accent: #0E1716; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1716; --panel: #16231F; --ink: #E4EEEB; --ink-2: #9FB3AF;
+  --line: #2A3B38; --accent: #F0719F; --on-accent: #0E1716; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.6 var(--body); }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.mono { font-family: var(--mono); }
+
+/* header */
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-block: 1.1rem; border-bottom: 1px solid var(--line); font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.top nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.top a { text-decoration: none; color: var(--ink-2); }
+.top a:hover { color: var(--accent); }
+
+/* hero */
+.hero { padding-block: clamp(2.25rem, 6vw, 4.5rem) 2.5rem; }
+.eyebrow { font: 500 0.78rem/1.5 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+h1 { font-size: clamp(2.5rem, 9.5vw, 5.8rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.035em; margin-top: 1rem; }
+.lead { max-width: 62ch; font-size: clamp(1.05rem, 2.4vw, 1.25rem); line-height: 1.55; margin-top: 1.5rem; color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 1.75rem; }
+.btn { display: inline-flex; align-items: center; min-height: 2.5rem; padding: 0.4rem 1rem; border: 1px solid var(--ink); border-radius: 4px; background: transparent; color: var(--ink); font: 500 0.85rem/1 var(--mono); text-decoration: none; cursor: pointer; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { filter: brightness(1.08); color: var(--on-accent); }
+.addr { font: 400 0.85rem/1.4 var(--mono); color: var(--ink-2); overflow-wrap: anywhere; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 1.25rem 2rem; margin: 2.5rem 0 0; padding-top: 1.1rem; border-top: 1px solid var(--line); }
+.facts div { min-width: 0; }
+.facts dt { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.facts dd { margin: 0.25rem 0 0; font-weight: 500; }
+
+.plot-wrap { margin: 2.5rem 0 0; padding: 0.9rem 0.9rem 0.75rem; background: var(--panel); border-radius: 6px; }
+#plot { width: 100%; min-height: 200px; }
+#plot svg { display: block; max-width: 100%; }
+.pk { font: 500 11px var(--mono); fill: var(--ink); }
+.tk { font: 400 11px var(--mono); fill: var(--ink-2); }
+.plot-wrap figcaption { margin-top: 0.5rem; font: 400 0.74rem/1.5 var(--mono); color: var(--ink-2); }
+
+/* sections */
+.sec { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem 3rem; padding-block: clamp(2.25rem, 5vw, 4rem); border-top: 1px solid var(--line); }
+.rail { font: 500 0.74rem/1.5 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.main { min-width: 0; }
+@media (min-width: 800px) {
+  .sec { grid-template-columns: 11rem minmax(0, 1fr); }
+  .rail { padding-top: 0.6rem; }
+}
+h2 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+.sub { margin-top: 0.6rem; color: var(--ink-2); max-width: 60ch; }
+
+/* methods */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+.chip { min-height: 2.25rem; padding: 0.3rem 0.85rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font: 500 0.8rem/1 var(--mono); cursor: pointer; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.count { margin-top: 0.9rem; font: 400 0.76rem/1.4 var(--mono); color: var(--ink-2); }
+.methods { list-style: none; margin: 0.6rem 0 0; padding: 0; border-top: 1px solid var(--ink); }
+.methods li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.2rem 2rem; padding-block: 1rem; border-bottom: 1px solid var(--line); }
+.m-name { font: 700 1.05rem/1.3 var(--display); }
+.m-what { min-width: 0; }
+.m-where { font: 400 0.76rem/1.5 var(--mono); color: var(--ink-2); }
+@media (min-width: 760px) {
+  .methods li { grid-template-columns: 12rem minmax(0, 1fr) 9.5rem; }
+}
+
+/* experience */
+.job { padding-block: 0 2.25rem; }
+.job + .job { padding-top: 2.25rem; border-top: 1px dashed var(--line); }
+.job:last-child { padding-bottom: 0; }
+.when { font: 500 0.78rem/1.4 var(--mono); letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase; }
+h3 { font-size: clamp(1.25rem, 3vw, 1.6rem); font-weight: 700; letter-spacing: -0.015em; line-height: 1.2; margin-top: 0.4rem; }
+.org { color: var(--ink-2); margin-top: 0.2rem; }
+.job ul { margin: 1rem 0 0; padding-left: 1.1rem; max-width: 70ch; }
+.job li { margin-top: 0.4rem; padding-left: 0.2rem; }
+.job li::marker { color: var(--ink-2); }
+.quote { margin: 1.4rem 0 0; max-width: 56ch; }
+.quote p { font: 500 1.15rem/1.4 var(--display); letter-spacing: -0.005em; }
+.quote cite { display: block; margin-top: 0.5rem; font: 400 0.75rem/1.5 var(--mono); font-style: normal; color: var(--ink-2); }
+
+/* education and skills */
+.edu { display: grid; gap: 1.6rem; }
+.edu-item { min-width: 0; }
+.edu-item h3 { margin-top: 0.3rem; }
+.edu-item p { margin-top: 0.3rem; max-width: 62ch; }
+.course { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.9rem 0 0; padding: 0; list-style: none; }
+.course li { padding: 0.25rem 0.65rem; border: 1px solid var(--line); border-radius: 4px; font: 400 0.8rem/1.4 var(--mono); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1.75rem 2.5rem; margin-top: 1.5rem; }
+.cols h3 { font-size: 1rem; letter-spacing: 0; margin: 0; }
+.cols ul { margin: 0.6rem 0 0; padding: 0; list-style: none; }
+.cols li { padding-block: 0.3rem; border-bottom: 1px solid var(--line); }
+
+/* contact */
+.mail { margin-top: 1.25rem; font: 700 clamp(1.15rem, 4.8vw, 2.3rem)/1.15 var(--display); letter-spacing: -0.02em; overflow-wrap: anywhere; user-select: all; }
+.reach { display: grid; gap: 0.35rem; margin-top: 1.25rem; font: 400 0.95rem/1.5 var(--mono); }
+.note { margin-top: 1.25rem; color: var(--ink-2); max-width: 56ch; }
+footer { border-top: 1px solid var(--line); padding-block: 1.5rem 2.5rem; font: 400 0.76rem/1.5 var(--mono); color: var(--ink-2); }
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span>C. K. Brian / Laboratory analyst</span>
+    <nav aria-label="Sections">
+      <a href="#methods">Methods</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="name">
+      <p class="eyebrow">Laboratory analyst · Quality control and assurance · Nairobi, Kenya</p>
+      <h1 id="name">Cheruiyot Kiprono Brian</h1>
+      <p class="lead">I test water, soil, plant material and food. I have almost three years of lab experience, and I work from field sampling through instrument runs to the written report, following procedures based on ISO/IEC 17025.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:cheruiyotbrian976@gmail.com">Email me</a>
+        <a class="btn" href="#methods">See what I run</a>
+        <span class="addr">cheruiyotbrian976@gmail.com</span>
+      </div>
+
+      <dl class="facts">
+        <div><dt>Experience</dt><dd>Almost 3 years in testing labs</dd></div>
+        <div><dt>Degree</dt><dd>BSc Analytical Chemistry, Second Class Honours (Upper Division)</dd></div>
+        <div><dt>Standard</dt><dd>ISO/IEC 17025 based SOPs</dd></div>
+        <div><dt>Languages</dt><dd>English, Kiswahili</dd></div>
+      </dl>
+
+      <figure class="plot-wrap">
+        <div id="plot"></div>
+        <figcaption>Illustrative HPLC trace, time in minutes. Peaks: EGC epigallocatechin, CAF caffeine, EC epicatechin, EGCG epigallocatechin gallate, ECG epicatechin gallate. Drawn for this page, not measured data.</figcaption>
+      </figure>
+    </section>
+
+    <section class="sec" id="methods" aria-labelledby="h-methods">
+      <div class="rail">Bench and instruments</div>
+      <div class="main">
+        <h2 id="h-methods">Methods I run</h2>
+        <p class="sub">Every method below comes from work I did at agriQ Quest, KALRO Tea Research Institute or the Water Resources Authority. Filter by what was being tested.</p>
+        <div class="chips" role="group" aria-label="Filter methods by sample type">
+          <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-f="water" aria-pressed="false">Water and wastewater</button>
+          <button class="chip" type="button" data-f="soil" aria-pressed="false">Soil</button>
+          <button class="chip" type="button" data-f="plant" aria-pressed="false">Tea and plant</button>
+          <button class="chip" type="button" data-f="food" aria-pressed="false">Food</button>
+        </div>
+        <p class="count" id="count" aria-live="polite"></p>
+        <ul class="methods" id="mlist">
+          <li data-m="water soil plant"><span class="m-name">UV-VIS spectrophotometry</span><span class="m-what">Total polyphenols in tea (ISO 14502-1:2005). Sulphates, phosphates and nitrates in soils and irrigation water.</span><span class="m-where">KALRO-TRI, agriQ Quest, WRA</span></li>
+          <li data-m="plant food"><span class="m-name">HPLC</span><span class="m-what">Catechins and caffeine in tea. Fatty acids and soluble and insoluble vitamins.</span><span class="m-where">KALRO-TRI, agriQ Quest</span></li>
+          <li data-m="water soil plant"><span class="m-name">Atomic absorption (AAS)</span><span class="m-what">Heavy metals in water, soil and foliar samples.</span><span class="m-where">agriQ Quest</span></li>
+          <li data-m="plant"><span class="m-name">ICP-OES</span><span class="m-what">Heavy metals and trace elements.</span><span class="m-where">KALRO-TRI</span></li>
+          <li data-m="food"><span class="m-name">Gas chromatography</span><span class="m-what">Alcohol content and volatile organic compounds.</span><span class="m-where">agriQ Quest</span></li>
+          <li data-m="water"><span class="m-name">Titrimetry</span><span class="m-what">Chemical oxygen demand (COD) and chlorides.</span><span class="m-where">agriQ Quest, WRA</span></li>
+          <li data-m="water"><span class="m-name">Calibrated meters</span><span class="m-what">pH, EC, TDS, turbidity, BOD, free chlorine, fluorides and nitrites.</span><span class="m-where">agriQ Quest, WRA</span></li>
+          <li data-m="soil plant"><span class="m-name">Kjeldahl and Walkley-Black</span><span class="m-what">Total nitrogen by Kjeldahl. Soil organic carbon by Walkley-Black.</span><span class="m-where">KALRO-TRI</span></li>
+          <li data-m="plant"><span class="m-name">Tea quality parameters</span><span class="m-what">Moisture content, theaflavins, thearubigins, brightness and colour across CTC and orthodox processing.</span><span class="m-where">KALRO-TRI</span></li>
+          <li data-m="water food"><span class="m-name">Microbiology</span><span class="m-what">Total viable count and total coliforms in potable water. Detection and isolation of Salmonella in water and food.</span><span class="m-where">agriQ Quest</span></li>
+          <li data-m="water soil plant food"><span class="m-name">Sampling and preparation</span><span class="m-what">Field sampling of soil, irrigation water and wastewater. Digestion of soil, wastewater and plant material. Pesticide sample preparation. Calibration standards.</span><span class="m-where">agriQ Quest, WRA</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec" id="experience" aria-labelledby="h-exp">
+      <div class="rail">Where I've worked</div>
+      <div class="main">
+        <h2 id="h-exp">Experience</h2>
+
+        <article class="job" style="margin-top:1.75rem">
+          <p class="when">February 2026</p>
+          <h3>Laboratory analyst, post-attachee</h3>
+          <p class="org">KALRO Tea Research Institute, Tea Biochemistry, Kericho</p>
+          <ul>
+            <li>Measured total polyphenols by UV-VIS (ISO 14502-1:2005) and catechins and caffeine by HPLC.</li>
+            <li>Analysed soil organic carbon (Walkley-Black) and total nitrogen (Kjeldahl), and did plant tissue and soil chemical analysis.</li>
+            <li>Used ICP-OES to detect heavy metals and trace elements.</li>
+            <li>Monitored moisture and the chemical changes (theaflavins, thearubigins) in CTC and orthodox tea processing.</li>
+            <li>Gained exposure to tea breeding, clonal selection (Purple Tea TRFK 306/1) and disease diagnosis.</li>
+          </ul>
+          <blockquote class="quote">
+            <p>“An articulate, polite, informed and highly motivated person.”</p>
+            <cite>Chief Research Scientist, Tea Biochemistry, KALRO-TRI</cite>
+          </blockquote>
+        </article>
+
+        <article class="job">
+          <p class="when">February 2024 to November 2025</p>
+          <h3>Laboratory analyst, Environment Department</h3>
+          <p class="org">agriQ Quest Laboratories Limited, Nairobi</p>
+          <ul>
+            <li>Sampled soil, irrigation water and wastewater in the field, digested soil, wastewater and plant material, and prepared samples for pesticide analysis.</li>
+            <li>Ran wet chemistry: pH, EC, TDS, turbidity, BOD, free chlorine, fluorides and nitrites on calibrated meters, and COD and chlorides by titration.</li>
+            <li>Ran instruments: UV-VIS for sulphates, phosphates and nitrates, AAS for heavy metals, HPLC for fatty acids and vitamins, and GC for alcohol content and volatile organic compounds.</li>
+            <li>Did microbiology: total viable count, total coliforms, and Salmonella detection and isolation in water and food.</li>
+            <li>Worked to company procedures based on ISO/IEC 17025.</li>
+          </ul>
+          <blockquote class="quote">
+            <p>“A hardworking person of an outstanding merit in his work.”</p>
+            <cite>Head of Laboratory Services, agriQ Quest Laboratories</cite>
+          </blockquote>
+        </article>
+
+        <article class="job">
+          <p class="when">May to August 2022</p>
+          <h3>Laboratory analyst, attachment</h3>
+          <p class="org">Water Resources Authority, Central Water Testing Laboratory, Nairobi</p>
+          <ul>
+            <li>Sampled water and wastewater and pre-treated samples with routine analytical procedures.</li>
+            <li>Measured sulphates, phosphates and nitrates by UV-VIS, COD and chlorides by titration, and pH, EC, TDS, turbidity, BOD, free chlorine, fluorides and nitrites on calibrated meters.</li>
+            <li>Prepared calibration standards and reagents, and practised good laboratory practice and sample management.</li>
+          </ul>
+          <blockquote class="quote">
+            <p>“Capable of working with minimum supervision in a multidisciplinary and multicultural environment.”</p>
+            <cite>Principal Water Quality and Pollution Control Officer, Central Water Testing Laboratory, WRA</cite>
+          </blockquote>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec" id="education" aria-labelledby="h-edu">
+      <div class="rail">Training</div>
+      <div class="main">
+        <h2 id="h-edu">Education</h2>
+        <div class="edu" style="margin-top:1.75rem">
+          <div class="edu-item">
+            <p class="when">2017 to 2023</p>
+            <h3>Bachelor of Science in Analytical Chemistry</h3>
+            <p>Taita Taveta University. Second Class Honours (Upper Division), awarded November 2023.</p>
+            <ul class="course" aria-label="Selected coursework">
+              <li>Quality control and assurance</li>
+              <li>Analytical instrumentation</li>
+              <li>Spectroscopic methods</li>
+              <li>Electroanalytical techniques</li>
+              <li>Bioanalytical techniques</li>
+              <li>Environmental impact assessment and auditing</li>
+              <li>Forensic chemistry</li>
+              <li>Drug analysis</li>
+              <li>Research project</li>
+            </ul>
+          </div>
+          <div class="edu-item">
+            <p class="when">2013 to 2016</p>
+            <h3>Kenya Certificate of Secondary Education</h3>
+            <p>Lenana School. Mean grade B+.</p>
+          </div>
+          <div class="edu-item">
+            <p class="when">2004 to 2012</p>
+            <h3>Kenya Certificate of Primary Education</h3>
+            <p>Tendwet Junior Academy. 381 marks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="h-skills">
+      <div class="rail">Beyond the bench</div>
+      <div class="main">
+        <h2 id="h-skills">Other skills</h2>
+        <div class="cols">
+          <div>
+            <h3>Lab practice</h3>
+            <ul>
+              <li>Proper instrument use</li>
+              <li>Excellent report writing</li>
+              <li>Tidiness and laboratory housekeeping</li>
+              <li>Analytical skills</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Digital</h3>
+            <ul>
+              <li>Microsoft Office suite</li>
+              <li>Data entry</li>
+              <li>Web development</li>
+              <li>Cloud computing enthusiast</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Working with people</h3>
+            <ul>
+              <li>Teamwork and communication</li>
+              <li>Time management and organisation</li>
+              <li>Works with minimal supervision</li>
+              <li>Comfortable in multicultural teams</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Languages</h3>
+            <ul>
+              <li>English, proficient</li>
+              <li>Kiswahili, fluent</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="contact" aria-labelledby="h-contact">
+      <div class="rail">Reach me</div>
+      <div class="main">
+        <h2 id="h-contact">Get in touch</h2>
+        <p class="mail" id="mail-text">cheruiyotbrian976@gmail.com</p>
+        <div class="actions">
+          <button class="btn primary" type="button" data-copy="cheruiyotbrian976@gmail.com" data-sel="mail-text">Copy email</button>
+          <a class="btn" href="mailto:cheruiyotbrian976@gmail.com">Open mail app</a>
+        </div>
+        <div class="reach">
+          <span>+254 722 734 334</span>
+          <span>Nairobi, Kenya</span>
+        </div>
+        <p class="note">Referees from agriQ Quest, Taita Taveta University, the Water Resources Authority and KALRO-TRI are available on request.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>Cheruiyot Kiprono Brian · Laboratory analyst · Nairobi, Kenya</footer>
+</div>
+
+<script>
+(function () {
+  var peaks = [
+    { n: 'EGC',  r: 5.2,  h: 0.55, w: 0.24 },
+    { n: 'CAF',  r: 7.8,  h: 0.82, w: 0.22 },
+    { n: 'EC',   r: 9.2,  h: 0.42, w: 0.26 },
+    { n: 'EGCG', r: 11.5, h: 1.0,  w: 0.30 },
+    { n: 'ECG',  r: 14.7, h: 0.50, w: 0.32 }
+  ];
+  var box = document.getElementById('plot');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var first = true, lastW = 0;
+
+  function sig(t) {
+    var s = 0.02 + 0.003 * t;
+    for (var i = 0; i < peaks.length; i++) {
+      var p = peaks[i], d = t - p.r, w = d > 0 ? p.w * 1.4 : p.w;
+      s += p.h * Math.exp(-(d * d) / (2 * w * w));
+    }
+    return s + 0.008 * Math.sin(t * 7.3) + 0.005 * Math.sin(t * 19.1);
+  }
+
+  function draw() {
+    var W = Math.max(280, Math.round(box.clientWidth));
+    lastW = W;
+    var H = W < 520 ? 200 : 240, l = 10, r = 10, t = 36, b = 30, x0 = 3, x1 = 17.5;
+    function X(v) { return l + (v - x0) / (x1 - x0) * (W - l - r); }
+    function Y(v) { return H - b - v * (H - b - t - 6); }
+    var pts = [];
+    for (var m = x0; m <= x1 + 1e-9; m += 0.05) { pts.push(X(m).toFixed(1) + ' ' + Y(sig(m)).toFixed(1)); }
+    var line = 'M' + pts.join('L');
+    var area = line + 'L' + X(x1).toFixed(1) + ' ' + Y(0).toFixed(1) + 'L' + X(x0).toFixed(1) + ' ' + Y(0).toFixed(1) + 'Z';
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Illustrative HPLC chromatogram of tea catechins and caffeine with five labelled peaks: EGC, CAF, EC, EGCG and ECG.">';
+    [0.5, 1].forEach(function (g) {
+      s += '<line x1="' + l + '" x2="' + (W - r) + '" y1="' + Y(g).toFixed(1) + '" y2="' + Y(g).toFixed(1) + '" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>';
+    });
+    s += '<path id="area" d="' + area + '" fill="var(--accent)" fill-opacity="0.1" stroke="none"/>';
+    s += '<path id="trace" d="' + line + '" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>';
+    s += '<line x1="' + l + '" x2="' + (W - r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '" stroke="var(--ink-2)" stroke-width="1"/>';
+    for (var k = 4; k <= 16; k += 2) {
+      s += '<line x1="' + X(k).toFixed(1) + '" x2="' + X(k).toFixed(1) + '" y1="' + Y(0) + '" y2="' + (Y(0) + 5) + '" stroke="var(--ink-2)" stroke-width="1"/>';
+      s += '<text class="tk" x="' + X(k).toFixed(1) + '" y="' + (Y(0) + 19) + '" text-anchor="middle">' + k + '</text>';
+    }
+    peaks.forEach(function (p) {
+      s += '<text class="pk" data-pk x="' + X(p.r).toFixed(1) + '" y="' + (Y(sig(p.r)) - 8).toFixed(1) + '" text-anchor="middle">' + p.n + '</text>';
+    });
+    s += '</svg>';
+    box.innerHTML = s;
+
+    if (first && !reduced) {
+      var tr = document.getElementById('trace');
+      if (tr && tr.animate && tr.getTotalLength) {
+        var len = tr.getTotalLength();
+        tr.animate([
+          { strokeDasharray: len + ' ' + len, strokeDashoffset: len },
+          { strokeDasharray: len + ' ' + len, strokeDashoffset: 0 }
+        ], { duration: 1700, easing: 'ease-out' });
+        var ar = document.getElementById('area');
+        if (ar && ar.animate) { ar.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, delay: 1100, fill: 'backwards' }); }
+        var labs = box.querySelectorAll('[data-pk]');
+        for (var i = 0; i < labs.length; i++) {
+          if (labs[i].animate) { labs[i].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 350, delay: 500 + i * 250, fill: 'backwards' }); }
+        }
+      }
+    }
+    first = false;
+  }
+  draw();
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () {
+      if (Math.abs(Math.round(box.clientWidth) - lastW) > 2) draw();
+    }).observe(box);
+  } else {
+    window.addEventListener('resize', draw);
+  }
+
+  var chips = document.querySelectorAll('.chip');
+  var rows = document.querySelectorAll('#mlist li');
+  var count = document.getElementById('count');
+  function apply(f) {
+    var n = 0;
+    rows.forEach(function (li) {
+      var show = f === 'all' || (' ' + li.getAttribute('data-m') + ' ').indexOf(' ' + f + ' ') > -1;
+      li.hidden = !show;
+      if (show) n++;
+    });
+    count.textContent = 'Showing ' + n + ' of ' + rows.length + ' methods';
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      chips.forEach(function (o) { o.setAttribute('aria-pressed', o === c ? 'true' : 'false'); });
+      apply(c.getAttribute('data-f'));
+    });
+  });
+  apply('all');
+
+  function selectText(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var label = btn.textContent;
+      function flash(msg) {
+        btn.textContent = msg;
+        setTimeout(function () { btn.textContent = label; }, 1800);
+      }
+      function fallback() { selectText(btn.getAttribute('data-sel')); flash('Selected, press copy'); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(function () { flash('Copied'); }, fallback);
+      } else {
+        fallback();
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
